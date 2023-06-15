@@ -11,7 +11,9 @@ import SwiftUI
 struct QTodo_v3_0App: App {
     var body: some Scene {
         WindowGroup {
-            ListView()
+            NavigationStack{
+                MainView()
+            }
         }
     }
 }
