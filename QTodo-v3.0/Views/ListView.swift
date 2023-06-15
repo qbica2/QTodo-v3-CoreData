@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct ListView: View {
+    
+    let todos: [TodoModel] = [
+        TodoModel(title: "First Todo", description: "Ekmek al", isCompleted: false, dueDate: Date()),
+        TodoModel(title: "Second Todo", description: "Çalış", isCompleted: true, dueDate: nil),
+        TodoModel(title: "Thirt Todo", description: "Kitap oku", isCompleted: false, dueDate: nil),
+    ]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            List(todos) { todo in
+                TodoView(todo: todo)
+            }
+        }
+        .navigationDestination(for: TodoModel.self) { todo in
+            Text("Todo: \(todo.title)")
+        }
     }
 }
 
