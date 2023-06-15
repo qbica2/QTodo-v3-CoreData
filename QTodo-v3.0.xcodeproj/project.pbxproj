@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		E0C10BB52A3B351100F5A997 /* QTodo_v3_0App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BB42A3B351100F5A997 /* QTodo_v3_0App.swift */; };
-		E0C10BB72A3B351100F5A997 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BB62A3B351100F5A997 /* ContentView.swift */; };
 		E0C10BB92A3B351200F5A997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C10BB82A3B351200F5A997 /* Assets.xcassets */; };
 		E0C10BBC2A3B351200F5A997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C10BBB2A3B351200F5A997 /* Preview Assets.xcassets */; };
+		E0C10BC42A3B35E900F5A997 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BC32A3B35E900F5A997 /* ListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E0C10BB12A3B351100F5A997 /* QTodo-v3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "QTodo-v3.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C10BB42A3B351100F5A997 /* QTodo_v3_0App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QTodo_v3_0App.swift; sourceTree = "<group>"; };
-		E0C10BB62A3B351100F5A997 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E0C10BB82A3B351200F5A997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E0C10BBB2A3B351200F5A997 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E0C10BC32A3B35E900F5A997 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				E0C10BB42A3B351100F5A997 /* QTodo_v3_0App.swift */,
-				E0C10BB62A3B351100F5A997 /* ContentView.swift */,
+				E0C10BC22A3B35D900F5A997 /* Views */,
 				E0C10BB82A3B351200F5A997 /* Assets.xcassets */,
 				E0C10BBA2A3B351200F5A997 /* Preview Content */,
 			);
@@ -65,6 +65,14 @@
 				E0C10BBB2A3B351200F5A997 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E0C10BC22A3B35D900F5A997 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E0C10BC32A3B35E900F5A997 /* ListView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +145,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0C10BB72A3B351100F5A997 /* ContentView.swift in Sources */,
 				E0C10BB52A3B351100F5A997 /* QTodo_v3_0App.swift in Sources */,
+				E0C10BC42A3B35E900F5A997 /* ListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
