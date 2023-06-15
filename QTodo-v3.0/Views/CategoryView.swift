@@ -20,8 +20,11 @@ struct CategoryView: View {
             .overlay(
               VStack(spacing:10){
                   Image(systemName: category.imageName)
+                      .resizable()
+                      .scaledToFit()
                       .foregroundColor(.white)
-                      .font(.title)
+                      .frame(width: 30, height: 30)
+                      
                   Text(category.name.capitalized)
                       .font(.headline)
                       .foregroundColor(.white)
