@@ -13,11 +13,24 @@ struct MainView: View {
         VStack{
             CategoriesContentView()
             ListView()
-            Spacer()
         }
         
         .navigationTitle("Qtodo")
+        .safeAreaInset(edge: .bottom, alignment: .trailing) {
+            NavigationLink {
+                AddNewTodoView()
+            } label: {
+                Image(systemName: "plus")
+                    .tint(.white)
+                    .padding()
+                    .background(Color.pink.opacity(0.8).ignoresSafeArea(edges: .bottom))
+                    .clipShape(Circle())
+                    .padding()
+            }
+              
+        }
     }
+    
 }
 
 struct MainView_Previews: PreviewProvider {
