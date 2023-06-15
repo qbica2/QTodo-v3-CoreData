@@ -15,20 +15,21 @@ struct CategoriesContentView: View {
         Category(name: "Shopping", imageName: "cart.fill"),
         Category(name: "Home", imageName: "house.fill"),
         Category(name: "Education", imageName: "book.fill"),
-        Category(name: "health", imageName: "heart.fill")
+        Category(name: "health", imageName: "heart.fill"),
+        Category(name: "other", imageName: "ellipsis")
     ]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
-                      ForEach(categories, id: \.self) { category in
-                          CategoryView(category: category)
-                      }
-                  }
-                  .frame(height: 120)
-                  .padding()
-                  
-              }
+                ForEach(categories, id: \.id) { category in
+                    CategoryView(category: category)
+                }
+            }
+            .frame(height: 120)
+            .padding()
+            
+        }
     }
 }
 
