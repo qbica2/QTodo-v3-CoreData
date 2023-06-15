@@ -17,6 +17,7 @@
 		E0C10BCF2A3B4BB300F5A997 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BCE2A3B4BB300F5A997 /* CategoryModel.swift */; };
 		E0C10BD12A3B526100F5A997 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD02A3B526100F5A997 /* TodoModel.swift */; };
 		E0C10BD32A3B5BFF00F5A997 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD22A3B5BFF00F5A997 /* TodoView.swift */; };
+		E0C10BD52A3B94C100F5A997 /* AddNewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		E0C10BCE2A3B4BB300F5A997 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		E0C10BD02A3B526100F5A997 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		E0C10BD22A3B5BFF00F5A997 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
+		E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTodoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				E0C10BC72A3B3C1900F5A997 /* CategoriesContentView.swift */,
 				E0C10BC92A3B46AE00F5A997 /* CategoryView.swift */,
 				E0C10BD22A3B5BFF00F5A997 /* TodoView.swift */,
+				E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 			files = (
 				E0C10BB52A3B351100F5A997 /* QTodo_v3_0App.swift in Sources */,
 				E0C10BCF2A3B4BB300F5A997 /* CategoryModel.swift in Sources */,
+				E0C10BD52A3B94C100F5A997 /* AddNewTodoView.swift in Sources */,
 				E0C10BD32A3B5BFF00F5A997 /* TodoView.swift in Sources */,
 				E0C10BC62A3B370200F5A997 /* MainView.swift in Sources */,
 				E0C10BC82A3B3C1900F5A997 /* CategoriesContentView.swift in Sources */,
