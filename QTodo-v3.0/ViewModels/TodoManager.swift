@@ -51,11 +51,12 @@ class TodoManager : ObservableObject {
         }
     }
     
-    func addNewTodo(title: String, description: String, dueDate: Date? = nil){
+    func addNewTodo(title: String, description: String, priority: Int16, dueDate: Date? = nil){
         let newTodo = TodoEntity(context: container.viewContext)
         newTodo.id = UUID().uuidString
         newTodo.title = title
         newTodo.desc = description
+        newTodo.priority = priority
         newTodo.categoryID = selectedCategoryID
         newTodo.isCompleted = false
         newTodo.dueDate = dueDate
@@ -66,7 +67,14 @@ class TodoManager : ObservableObject {
         container.viewContext.delete(todo)
         saveTodosToCoreData()
     }
-
+    
+//    func moveTodos(from indexSet: IndexSet, to newIndex: Int) {
+//        todos.move(fromOffsets: indexSet, toOffset: newIndex)
+//        for (index, todo) in todos.enumerated() {
+//              todo.order = Int16(index)
+//          }
+//          saveTodosToCoreData()
+//    }
 
     func saveTodosToCoreData(){
         do {
