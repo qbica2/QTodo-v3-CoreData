@@ -36,6 +36,6 @@ struct CategoryView: View {
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryView(category: Category(name: "home", imageName: "house.fill"))
+        CategoryView(category: Category(id: 3, name: "home", imageName: "house.fill"))
     }
 }

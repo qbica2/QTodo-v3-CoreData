@@ -15,11 +15,7 @@ struct AddNewTodoView: View {
     @State private var todoDescription: String = ""
     @State private var isScheduled: Bool = false
     @State private var todoDueDate: Date = Date()
-    @State private var todoCategory: String = "Other"
-    
-    let categories = [
-        "Personal", "Work", "Shopping", "Home", "Education", "Healt", "Other"
-    ]
+    @State private var todoCategory: Int = 6
     
     let currentDate = Date()
     let oneMonthLater = Calendar.current.date(byAdding: .month, value: 1, to: Date())
@@ -33,12 +29,12 @@ struct AddNewTodoView: View {
             }, header: {
                 Text("Todo")
             })
-            
+
             Section {
                 Picker("Select a category", selection: $todoCategory) {
-                    ForEach(categories, id: \.self) { item in
-                        Text(item.capitalized)
-                            .tag(item.capitalized)
+                    ForEach(todoManager.categories, id: \.id) { item in
+                        Text(item.name.capitalized)
+                            .tag(item.id)
                     }
                 }
                 .pickerStyle(.menu)
@@ -46,7 +42,6 @@ struct AddNewTodoView: View {
                 Text("Category")
             }
 
-            
             Section {
                 Toggle("Schedule Time", isOn: $isScheduled)
                 DatePicker("Due Date", selection: $todoDueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
@@ -73,7 +68,7 @@ struct AddNewTodoView: View {
 
 extension AddNewTodoView {
     func saveButtonPressed(){
-        todoManager.addNewTodo(title: todoText, description: todoDescription, category: todoCategory, dueDate: isScheduled ? todoDueDate : nil)
+        todoManager.addNewTodo(title: todoText, description: todoDescription, categoryID: todoCategory, dueDate: isScheduled ? todoDueDate : nil)
     }
 }
 
@@ -82,5 +77,6 @@ struct AddNewTodoView_Previews: PreviewProvider {
         NavigationStack {
             AddNewTodoView()
         }
+        .environmentObject(TodoManager())
     }
 }
