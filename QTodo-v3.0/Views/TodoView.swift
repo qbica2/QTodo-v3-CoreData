@@ -9,13 +9,13 @@ import SwiftUI
 
 struct TodoView: View {
     
-    let todo: TodoModel
+    let todo: TodoEntity
     
     var body: some View {
         NavigationLink(value: todo) {
             HStack{
                 Image(systemName: todo.isCompleted ? "circle.fill" : "circle")
-                Text(todo.title)
+                Text(todo.title ?? "title")
                 
                 if let dueDate = todo.dueDate {
                     Spacer()
@@ -37,6 +37,6 @@ struct TodoView: View {
 
 struct TodoView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoView(todo: TodoModel(title: "Second Todo", description: "Çalış", isCompleted: true, dueDate: nil))
+        TodoView(todo: TodoEntity(context: TodoManager().container.viewContext))
     }
 }
