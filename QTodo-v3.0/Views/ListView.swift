@@ -15,6 +15,14 @@ struct ListView: View {
         ZStack{
             List(todoManager.todos) { todo in
                 TodoView(todo: todo)
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            todoManager.deleteTodo(todo)
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .tint(.red)
+                    }
             }
         }
         .navigationDestination(for: TodoEntity.self) { todo in
