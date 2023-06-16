@@ -9,11 +9,15 @@ import SwiftUI
 
 @main
 struct QTodo_v3_0App: App {
+    
+    @StateObject var todoManager: TodoManager = TodoManager()
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack{
                 MainView()
             }
+            .environmentObject(todoManager)
         }
     }
 }
