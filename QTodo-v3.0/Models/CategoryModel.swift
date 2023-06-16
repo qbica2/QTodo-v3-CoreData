@@ -8,7 +8,7 @@
 import Foundation
 
 struct Category: Hashable, Identifiable {
-    let id: Int
+    let id: Int16
     let name: String
     let imageName: String
 }
