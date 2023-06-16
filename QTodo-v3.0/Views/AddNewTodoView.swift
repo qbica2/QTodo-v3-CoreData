@@ -15,6 +15,7 @@ struct AddNewTodoView: View {
     @State private var todoDescription: String = ""
     @State private var isScheduled: Bool = false
     @State private var todoDueDate: Date = Date()
+    @State private var priority: Float = 0
     
     let currentDate = Date()
     let oneMonthLater = Calendar.current.date(byAdding: .month, value: 1, to: Date())
@@ -36,9 +37,26 @@ struct AddNewTodoView: View {
                             .tag(item.id)
                     }
                 }
+                .tint(.pink)
                 .pickerStyle(.menu)
             } header: {
                 Text("Category")
+            }
+            
+            Section {
+                Slider(value: $priority,in: 0...100, step: 1) {
+                    Text("Priority")
+                } minimumValueLabel: {
+                    Text("0")
+                        .foregroundColor(.pink)
+                } maximumValueLabel: {
+                    Text("\(String(format: "%.0f", priority))/100")
+                        .foregroundColor(.pink)
+                }
+                .tint(.pink)
+
+            } header: {
+                Text("Priority")
             }
 
             Section {
@@ -67,7 +85,7 @@ struct AddNewTodoView: View {
 
 extension AddNewTodoView {
     func saveButtonPressed(){
-        todoManager.addNewTodo(title: todoText, description: todoDescription, dueDate: isScheduled ? todoDueDate : nil)
+        todoManager.addNewTodo(title: todoText, description: todoDescription, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
     }
 }
 
