@@ -61,6 +61,12 @@ class TodoManager : ObservableObject {
         newTodo.dueDate = dueDate
         saveTodosToCoreData()
     }
+    
+    func deleteTodo(_ todo: TodoEntity) {
+        container.viewContext.delete(todo)
+        saveTodosToCoreData()
+    }
+
 
     func saveTodosToCoreData(){
         do {
@@ -76,4 +82,17 @@ class TodoManager : ObservableObject {
         getTodos(for: selectedCategoryID)
     }
     
+    func getTodoCount(for categoryId: Int16) -> Int {
+        let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+        request.predicate = NSPredicate(format: "categoryID == %d", categoryId)
+
+        do {
+            let count = try container.viewContext.count(for: request)
+            return count
+        } catch let error {
+            print("Error fetching count: \(error.localizedDescription)")
+            return 0
+        }
+    }
+
 }
