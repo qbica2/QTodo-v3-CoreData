@@ -38,5 +38,6 @@ struct MainView_Previews: PreviewProvider {
         NavigationStack{
             MainView()
         }
+        .environmentObject(TodoManager())
     }
 }
