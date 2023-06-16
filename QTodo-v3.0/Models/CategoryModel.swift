@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Category: Hashable {
-    let id: String = UUID().uuidString
+struct Category: Hashable, Identifiable {
+    let id: Int
     let name: String
     let imageName: String
 }
