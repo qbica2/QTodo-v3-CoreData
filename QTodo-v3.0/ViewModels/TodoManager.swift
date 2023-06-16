@@ -14,7 +14,7 @@ class TodoManager : ObservableObject {
     let container : NSPersistentContainer
     @Published var todos: [TodoEntity] = []
     @Published var categories: [Category] = []
-    @Published var selectedCategoryID: Int = 0
+    @Published var selectedCategoryID: Int16 = 0
 
     init (){
         container = NSPersistentContainer(name: "TodoData")
@@ -24,7 +24,7 @@ class TodoManager : ObservableObject {
             }
         }
         getCategories()
-        getTodos()
+        getTodos(for: selectedCategoryID)
     }
     
     func getCategories(){
@@ -40,8 +40,9 @@ class TodoManager : ObservableObject {
 
     }
     
-    func getTodos(){
+    func getTodos(for categoryId: Int16){
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+        request.predicate = NSPredicate(format: "categoryID == %d", categoryId)
 
         do {
             todos = try container.viewContext.fetch(request)
@@ -50,12 +51,12 @@ class TodoManager : ObservableObject {
         }
     }
     
-    func addNewTodo(title: String, description: String, categoryID: Int, dueDate: Date? = nil){
+    func addNewTodo(title: String, description: String, dueDate: Date? = nil){
         let newTodo = TodoEntity(context: container.viewContext)
         newTodo.id = UUID().uuidString
         newTodo.title = title
         newTodo.desc = description
-        newTodo.categoryID = Int16(categoryID)
+        newTodo.categoryID = selectedCategoryID
         newTodo.isCompleted = false
         newTodo.dueDate = dueDate
         saveTodosToCoreData()
@@ -64,10 +65,15 @@ class TodoManager : ObservableObject {
     func saveTodosToCoreData(){
         do {
             try container.viewContext.save()
-            getTodos()
+            getTodos(for: selectedCategoryID)
         } catch let error {
             print("Saving errror \(error.localizedDescription)")
         }
+    }
+    
+    func setSelectedCategory(id: Int16){
+        selectedCategoryID = id
+        getTodos(for: selectedCategoryID)
     }
     
 }
