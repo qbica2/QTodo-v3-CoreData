@@ -15,7 +15,6 @@ struct AddNewTodoView: View {
     @State private var todoDescription: String = ""
     @State private var isScheduled: Bool = false
     @State private var todoDueDate: Date = Date()
-    @State private var todoCategory: Int = 6
     
     let currentDate = Date()
     let oneMonthLater = Calendar.current.date(byAdding: .month, value: 1, to: Date())
@@ -31,7 +30,7 @@ struct AddNewTodoView: View {
             })
 
             Section {
-                Picker("Select a category", selection: $todoCategory) {
+                Picker("Select a category", selection: $todoManager.selectedCategoryID) {
                     ForEach(todoManager.categories, id: \.id) { item in
                         Text(item.name.capitalized)
                             .tag(item.id)
@@ -68,7 +67,7 @@ struct AddNewTodoView: View {
 
 extension AddNewTodoView {
     func saveButtonPressed(){
-        todoManager.addNewTodo(title: todoText, description: todoDescription, categoryID: todoCategory, dueDate: isScheduled ? todoDueDate : nil)
+        todoManager.addNewTodo(title: todoText, description: todoDescription, dueDate: isScheduled ? todoDueDate : nil)
     }
 }
 
