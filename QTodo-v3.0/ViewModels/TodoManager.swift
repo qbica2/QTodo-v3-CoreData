@@ -51,7 +51,7 @@ class TodoManager : ObservableObject {
         }
     }
     
-    func addNewTodo(title: String, description: String, priority: Int16, dueDate: Date? = nil){
+    func addNewTodo(title: String, description: String, priority: Float, dueDate: Date? = nil){
         let newTodo = TodoEntity(context: container.viewContext)
         newTodo.id = UUID().uuidString
         newTodo.title = title
