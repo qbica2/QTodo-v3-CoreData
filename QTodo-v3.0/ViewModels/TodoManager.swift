@@ -34,24 +34,24 @@ class TodoManager : ObservableObject {
         }
     }
     
-//    func addNewTodo(title: String, description: String, category: String, dueDate: Date? = nil){
-//        let newTodo = TodoEntity(context: container.viewContext)
-//        newTodo.id = UUID().uuidString
-//        newTodo.title = title
-//        newTodo.desc = description
-//        newTodo.category = category
-//        newTodo.isCompleted = false
-//        newTodo.dueDate = dueDate
-//        saveTodosToCoreData()
-//    }
-//    
-//    func saveTodosToCoreData(){
-//        do {
-//            try container.viewContext.save()
-//            getTodos()
-//        } catch let error {
-//            print("Saving errror \(error.localizedDescription)")
-//        }
-//    }
+    func addNewTodo(title: String, description: String, category: String, dueDate: Date? = nil){
+        let newTodo = TodoEntity(context: container.viewContext)
+        newTodo.id = UUID().uuidString
+        newTodo.title = title
+        newTodo.desc = description
+        newTodo.category = category
+        newTodo.isCompleted = false
+        newTodo.dueDate = dueDate
+        saveTodosToCoreData()
+    }
+
+    func saveTodosToCoreData(){
+        do {
+            try container.viewContext.save()
+            getTodos()
+        } catch let error {
+            print("Saving errror \(error.localizedDescription)")
+        }
+    }
     
 }
