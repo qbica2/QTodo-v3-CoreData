@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoryView: View {
     
+    @EnvironmentObject var todoManager: TodoManager
     let category: Category
     
     var body: some View {
@@ -30,12 +31,13 @@ struct CategoryView: View {
                       .foregroundColor(.white)
               }
             )
-            .shadow(color: .white.opacity(0.6),radius: 5)
+            .shadow(color: .white.opacity(todoManager.selectedCategoryID == category.id ? 0.9 : 0.1),radius: 10)
     }
 }
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryView(category: Category(id: 3, name: "home", imageName: "house.fill"))
+            .environmentObject(TodoManager())
     }
 }
