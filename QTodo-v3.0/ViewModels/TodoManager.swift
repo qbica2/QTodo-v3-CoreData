@@ -68,13 +68,11 @@ class TodoManager : ObservableObject {
         saveTodosToCoreData()
     }
     
-//    func moveTodos(from indexSet: IndexSet, to newIndex: Int) {
-//        todos.move(fromOffsets: indexSet, toOffset: newIndex)
-//        for (index, todo) in todos.enumerated() {
-//              todo.order = Int16(index)
-//          }
-//          saveTodosToCoreData()
-//    }
+    func moveTodos(indexSet: IndexSet, newIndex: Int) {
+
+        todos.move(fromOffsets: indexSet, toOffset: newIndex)
+    }
+
 
     func saveTodosToCoreData(){
         do {
