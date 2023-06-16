@@ -16,6 +16,9 @@ struct CategoriesContentView: View {
             HStack(spacing: 10) {
                 ForEach(todoManager.categories, id: \.id) { category in
                     CategoryView(category: category)
+                        .onTapGesture {
+                            todoManager.setSelectedCategory(id: category.id)
+                        }
                 }
             }
             .frame(height: 120)
