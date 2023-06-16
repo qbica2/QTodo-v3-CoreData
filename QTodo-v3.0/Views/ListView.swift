@@ -9,26 +9,25 @@ import SwiftUI
 
 struct ListView: View {
     
-    let todos: [TodoModel] = [
-        TodoModel(title: "First Todo", description: "Ekmek al", isCompleted: false, dueDate: Date()),
-        TodoModel(title: "Second Todo", description: "Çalış", isCompleted: true, dueDate: nil),
-        TodoModel(title: "Thirt Todo", description: "Kitap oku", isCompleted: false, dueDate: nil),
-    ]
+    @EnvironmentObject var todoManager: TodoManager
     
     var body: some View {
         ZStack{
-            List(todos) { todo in
+            List(todoManager.todos) { todo in
                 TodoView(todo: todo)
             }
         }
-        .navigationDestination(for: TodoModel.self) { todo in
-            Text("Todo: \(todo.title)")
+        .navigationDestination(for: TodoEntity.self) { todo in
+            Text("Todo: \(todo.title ?? "asd")")
         }
     }
 }
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView()
+        NavigationStack {
+            ListView()
+        }
+        .environmentObject(TodoManager())
     }
 }
