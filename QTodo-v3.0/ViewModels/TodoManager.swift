@@ -13,6 +13,8 @@ class TodoManager : ObservableObject {
     
     let container : NSPersistentContainer
     @Published var todos: [TodoEntity] = []
+    @Published var categories: [Category] = []
+    @Published var selectedCategoryID: Int = 0
 
     init (){
         container = NSPersistentContainer(name: "TodoData")
@@ -21,7 +23,21 @@ class TodoManager : ObservableObject {
                 print("Error Loading Core Data \(error.localizedDescription)")
             }
         }
+        getCategories()
         getTodos()
+    }
+    
+    func getCategories(){
+        let category1 = Category(id: 0, name: "Personal", imageName: "person.fill")
+        let category2 = Category(id: 1, name: "Work", imageName: "briefcase.fill")
+        let category3 = Category(id: 2, name: "Shopping", imageName: "cart.fill")
+        let category4 = Category(id: 3, name: "Home", imageName: "house.fill")
+        let category5 = Category(id: 4, name: "Education", imageName: "book.fill")
+        let category6 = Category(id: 5, name: "Health", imageName: "heart.fill")
+        let category7 = Category(id: 6, name: "Other", imageName: "ellipsis")
+        
+        categories.append(contentsOf: [category1, category2, category3, category4, category5, category6, category7])
+
     }
     
     func getTodos(){
@@ -34,12 +50,12 @@ class TodoManager : ObservableObject {
         }
     }
     
-    func addNewTodo(title: String, description: String, category: String, dueDate: Date? = nil){
+    func addNewTodo(title: String, description: String, categoryID: Int, dueDate: Date? = nil){
         let newTodo = TodoEntity(context: container.viewContext)
         newTodo.id = UUID().uuidString
         newTodo.title = title
         newTodo.desc = description
-        newTodo.category = category
+        newTodo.categoryID = Int16(categoryID)
         newTodo.isCompleted = false
         newTodo.dueDate = dueDate
         saveTodosToCoreData()
