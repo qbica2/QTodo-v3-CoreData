@@ -9,11 +9,13 @@ import SwiftUI
 
 struct AddNewTodoView: View {
     
+    @EnvironmentObject var todoManager: TodoManager
+    
     @State private var todoText: String = ""
     @State private var todoDescription: String = ""
     @State private var isScheduled: Bool = false
-    @State private var dueDate: Date = Date()
-    @State private var category: String = "Other"
+    @State private var todoDueDate: Date = Date()
+    @State private var todoCategory: String = "Other"
     
     let categories = [
         "Personal", "Work", "Shopping", "Home", "Education", "Healt", "Other"
@@ -33,7 +35,7 @@ struct AddNewTodoView: View {
             })
             
             Section {
-                Picker("Select a category", selection: $category) {
+                Picker("Select a category", selection: $todoCategory) {
                     ForEach(categories, id: \.self) { item in
                         Text(item.capitalized)
                             .tag(item.capitalized)
@@ -47,14 +49,14 @@ struct AddNewTodoView: View {
             
             Section {
                 Toggle("Schedule Time", isOn: $isScheduled)
-                DatePicker("Due Date", selection: $dueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
+                DatePicker("Due Date", selection: $todoDueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
                     .disabled(!isScheduled)
             } header: {
                 Text("Due Date")
             }
             
             Button {
-                
+                saveButtonPressed()
             } label: {
                 Text("Save".uppercased())
                     .font(.title)
@@ -65,6 +67,13 @@ struct AddNewTodoView: View {
 
         }
         .navigationTitle("Add New Todo")
+    }
+}
+//MARK: - FUNCTIONS
+
+extension AddNewTodoView {
+    func saveButtonPressed(){
+        todoManager.addNewTodo(title: todoText, description: todoDescription, category: todoCategory, dueDate: isScheduled ? todoDueDate : nil)
     }
 }
 
