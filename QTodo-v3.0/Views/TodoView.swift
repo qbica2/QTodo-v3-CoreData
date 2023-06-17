@@ -16,7 +16,7 @@ struct TodoView: View {
     
     var body: some View {
         HStack{
-            Image(systemName: isACtive ? "circle.fill" : "circle")
+            Image(systemName: isACtive ? "circle" : "circle.fill")
             Text(todo.title ?? "title")
             
             if let dueDate = todo.dueDate {
