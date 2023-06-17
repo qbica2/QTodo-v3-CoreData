@@ -10,6 +10,7 @@ import SwiftUI
 struct TodoDetailView: View {
     
     @EnvironmentObject var todoManager: TodoManager
+    @Environment(\.presentationMode) var presentationMode
     
     @State private var title: String = ""
     @State private var description: String = ""
@@ -42,7 +43,7 @@ struct TodoDetailView: View {
                 })
                 
                 Section {
-                    Toggle("Status", isOn: $isActive)
+                    Toggle(isActive ? "Active" : "Passive" , isOn: $isActive)
                         .tint(.pink)
                 } header: {
                     Text("Change Status")
@@ -101,13 +102,32 @@ struct TodoDetailView: View {
         }
          .navigationBarTitle("Edit Todo ✏️")
          .navigationBarTitleDisplayMode(.inline)
+         .toolbar {
+             ToolbarItem(placement: .navigationBarTrailing) {
+                 Text("Save")
+                     .foregroundColor(Color.pink)
+                     .onTapGesture {
+                         saveButtonPressed()
+                     }
+             }
+         }
       
      }
+}
+//MARK: - Functions
+
+extension TodoDetailView {
+    func saveButtonPressed(){
+        todoManager.updateTodo(todo: todo, newTitle: title, newDesc: description, newStatus: isActive, newPriority: priority, newDueDate: isScheduled ? dueDate : nil)
+        presentationMode.wrappedValue.dismiss()
+    }
 }
 
 struct TodoDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoDetailView(todo: TodoEntity(context: TodoManager().container.viewContext))
-            .environmentObject(TodoManager())
+        NavigationStack{
+            TodoDetailView(todo: TodoEntity(context: TodoManager().container.viewContext))
+        }
+        .environmentObject(TodoManager())
     }
 }
