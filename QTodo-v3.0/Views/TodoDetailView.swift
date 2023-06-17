@@ -10,6 +10,7 @@ import SwiftUI
 struct TodoDetailView: View {
     
     @EnvironmentObject var todoManager: TodoManager
+    @EnvironmentObject var csm: CustomSheetManager
     @Environment(\.presentationMode) var presentationMode
     
     @State private var title: String = ""
@@ -104,12 +105,19 @@ struct TodoDetailView: View {
          .navigationBarTitleDisplayMode(.inline)
          .toolbar {
              ToolbarItem(placement: .navigationBarTrailing) {
-                 Text("Save")
-                     .foregroundColor(Color.pink)
-                     .onTapGesture {
-                         saveButtonPressed()
-                     }
+                 Button(action: saveButtonPressed) {
+                     Text("Save")
+                         .foregroundColor(.white)
+                         .padding(.horizontal)
+                         .padding(.vertical, 8)
+                         .background(Color.pink.opacity(0.8))
+                         .clipShape(Capsule())
+                 }
              }
+         }
+         .sheet(isPresented: $csm.isCsActive) {
+             CustomSheetView()
+                 .presentationDetents([.height(300)])
          }
       
      }
@@ -117,9 +125,28 @@ struct TodoDetailView: View {
 //MARK: - Functions
 
 extension TodoDetailView {
+    
+    func isTodoTitleValid(trimmedText: String) -> Bool {
+        if trimmedText.isEmpty {
+            csm.createErrorSheet(message: "Please enter a valid title!", emojis: "😱😨😰")
+            return false
+        }
+        
+        if trimmedText.count < 3 {
+            csm.createErrorSheet(message: "New title must be at least 3 characters long!", emojis: "😱😨😰")
+            return false
+        }
+        
+        return true
+    }
+    
     func saveButtonPressed(){
-        todoManager.updateTodo(todo: todo, newTitle: title, newDesc: description, newStatus: isActive, newPriority: priority, newDueDate: isScheduled ? dueDate : nil)
-        presentationMode.wrappedValue.dismiss()
+        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if isTodoTitleValid(trimmedText: trimmedTitle) {
+            todoManager.updateTodo(todo: todo, newTitle: trimmedTitle, newDesc: description, newStatus: isActive, newPriority: priority, newDueDate: isScheduled ? dueDate : nil)
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
@@ -129,5 +156,6 @@ struct TodoDetailView_Previews: PreviewProvider {
             TodoDetailView(todo: TodoEntity(context: TodoManager().container.viewContext))
         }
         .environmentObject(TodoManager())
+        .environmentObject(CustomSheetManager())
     }
 }
