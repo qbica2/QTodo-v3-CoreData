@@ -9,25 +9,39 @@ import SwiftUI
 
 struct TodoView: View {
     
+    @EnvironmentObject var todoManager: TodoManager
+    @State var isACtive: Bool = false
+    
     let todo: TodoEntity
     
     var body: some View {
-        NavigationLink(value: todo) {
-            HStack{
-                Image(systemName: todo.isCompleted ? "circle.fill" : "circle")
-                Text(todo.title ?? "title")
-                
-                if let dueDate = todo.dueDate {
-                    Spacer()
-                    Text(formatDate(dueDate))
-                        .foregroundColor(.gray)
-                }
+        HStack{
+            Image(systemName: isACtive ? "circle.fill" : "circle")
+            Text(todo.title ?? "title")
+            
+            if let dueDate = todo.dueDate {
+                Spacer()
+                Text(formatDate(dueDate))
+                    .foregroundColor(.gray)
             }
-            .font(.headline)
-            .foregroundColor(.pink.opacity(0.8))
+        }
+        .font(.headline)
+        .foregroundColor(.pink.opacity(0.8))
+        .onTapGesture {
+            withAnimation {
+                isACtive.toggle()
+                todoManager.toggleTodo(todo: todo)
+            }
+        }
+        .onAppear {
+            isACtive = !todo.isCompleted
         }
     }
-    
+}
+
+//MARK: - Functions
+
+extension TodoView {
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy"
@@ -38,5 +52,6 @@ struct TodoView: View {
 struct TodoView_Previews: PreviewProvider {
     static var previews: some View {
         TodoView(todo: TodoEntity(context: TodoManager().container.viewContext))
+            .environmentObject(TodoManager())
     }
 }
