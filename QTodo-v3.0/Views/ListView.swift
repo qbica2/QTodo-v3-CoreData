@@ -23,10 +23,16 @@ struct ListView: View {
                                 Image(systemName: "trash")
                             }
                             .tint(.red)
+                            
+                            NavigationLink(value: todo) {
+                                Image(systemName: "square.and.pencil")
+                            }
+                            .tint(.mint)
                         }
                 }
                 .onMove(perform: todoManager.moveTodos)
             }
+            .listStyle(.insetGrouped)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -34,7 +40,7 @@ struct ListView: View {
             }
         }
         .navigationDestination(for: TodoEntity.self) { todo in
-            Text("Todo: \(todo.title ?? "asd")")
+            TodoDetailView(todo: todo)
         }
     }
 }
