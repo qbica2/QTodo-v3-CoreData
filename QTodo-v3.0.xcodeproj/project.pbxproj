@@ -19,6 +19,7 @@
 		E0C10BD52A3B94C100F5A997 /* AddNewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */; };
 		E0C10BD82A3C64A200F5A997 /* TodoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD72A3C64A200F5A997 /* TodoManager.swift */; };
 		E0C10BDB2A3C763D00F5A997 /* TodoData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD92A3C763D00F5A997 /* TodoData.xcdatamodeld */; };
+		E0C10BDD2A3DF39F00F5A997 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BDC2A3DF39F00F5A997 /* TodoDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTodoView.swift; sourceTree = "<group>"; };
 		E0C10BD72A3C64A200F5A997 /* TodoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoManager.swift; sourceTree = "<group>"; };
 		E0C10BDA2A3C763D00F5A997 /* TodoData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoData.xcdatamodel; sourceTree = "<group>"; };
+		E0C10BDC2A3DF39F00F5A997 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				E0C10BC92A3B46AE00F5A997 /* CategoryView.swift */,
 				E0C10BD22A3B5BFF00F5A997 /* TodoView.swift */,
 				E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */,
+				E0C10BDC2A3DF39F00F5A997 /* TodoDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				E0C10BDB2A3C763D00F5A997 /* TodoData.xcdatamodeld in Sources */,
 				E0C10BD32A3B5BFF00F5A997 /* TodoView.swift in Sources */,
 				E0C10BC62A3B370200F5A997 /* MainView.swift in Sources */,
+				E0C10BDD2A3DF39F00F5A997 /* TodoDetailView.swift in Sources */,
 				E0C10BD82A3C64A200F5A997 /* TodoManager.swift in Sources */,
 				E0C10BC82A3B3C1900F5A997 /* CategoriesContentView.swift in Sources */,
 				E0C10BC42A3B35E900F5A997 /* ListView.swift in Sources */,
