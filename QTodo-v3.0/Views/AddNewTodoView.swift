@@ -10,8 +10,10 @@ import SwiftUI
 struct AddNewTodoView: View {
     
     @EnvironmentObject var todoManager: TodoManager
+    @EnvironmentObject var csm: CustomSheetManager
+    @Environment(\.presentationMode) var presentationMode
     
-    @State private var todoText: String = ""
+    @State private var todoTitle: String = ""
     @State private var todoDescription: String = ""
     @State private var isScheduled: Bool = false
     @State private var todoDueDate: Date = Date()
@@ -24,12 +26,12 @@ struct AddNewTodoView: View {
     var body: some View {
         Form {
             Section (content: {
-                TextField("Title", text: $todoText)
+                TextField("Title", text: $todoTitle)
                 TextField("Description", text: $todoDescription)
             }, header: {
                 Text("Todo")
             })
-
+            
             Section {
                 Picker("Select a category", selection: $todoManager.selectedCategoryID) {
                     ForEach(todoManager.categories, id: \.id) { item in
@@ -69,25 +71,54 @@ struct AddNewTodoView: View {
                 Text("Due Date")
             }
             
-            Button {
-                saveButtonPressed()
-            } label: {
-                Text("Save".uppercased())
+            Button(action: saveButtonPressed) {
+                Text("Save")
                     .font(.title)
-                    .foregroundColor(.pink)
-                    .frame(maxWidth: .infinity,alignment: .center)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.vertical, 10)
+                    .background(Color.pink)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 20)
             }
-
+            .padding()
+            
+            .sheet(isPresented: $csm.isCsActive, content: {
+                CustomSheetView()
+                    .presentationDetents([.height(300)])
+            })
+            .navigationTitle("Add New Todo")
         }
-        .navigationTitle("Add New Todo")
+        .formStyle(.grouped)
     }
 }
 //MARK: - FUNCTIONS
 
 extension AddNewTodoView {
+    
+    func isTodoTitleValid(trimmedText: String) -> Bool {
+        if trimmedText.isEmpty {
+            csm.createErrorSheet(message: "Please enter a valid todo!", emojis: "😱😨😰")
+            return false
+        }
+        
+        if trimmedText.count < 3 {
+            csm.createErrorSheet(message: "Your new todo must be at least 3 characters long!", emojis: "😱😨😰")
+            return false
+        }
+        
+        return true
+    }
+    
+    
     func saveButtonPressed(){
-        todoManager.addNewTodo(title: todoText, description: todoDescription, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
+        let trimmedTitle = todoTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if isTodoTitleValid(trimmedText: trimmedTitle) {
+            todoManager.addNewTodo(title: todoTitle, description: todoDescription, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
@@ -97,5 +128,6 @@ struct AddNewTodoView_Previews: PreviewProvider {
             AddNewTodoView()
         }
         .environmentObject(TodoManager())
+        .environmentObject(CustomSheetManager())
     }
 }
