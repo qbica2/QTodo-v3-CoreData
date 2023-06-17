@@ -11,6 +11,7 @@ import SwiftUI
 struct QTodo_v3_0App: App {
     
     @StateObject var todoManager: TodoManager = TodoManager()
+    @StateObject var customSheetManager: CustomSheetManager = CustomSheetManager()
     
     var body: some Scene {
         WindowGroup {
@@ -18,6 +19,7 @@ struct QTodo_v3_0App: App {
                 MainView()
             }
             .environmentObject(todoManager)
+            .environmentObject(customSheetManager)
         }
     }
 }
