@@ -99,12 +99,12 @@ extension AddNewTodoView {
     
     func isTodoTitleValid(trimmedText: String) -> Bool {
         if trimmedText.isEmpty {
-            csm.createErrorSheet(message: "Please enter a valid todo!", emojis: "😱😨😰")
+            csm.createErrorSheet(message: "Please enter a valid title!", emojis: "😱😨😰")
             return false
         }
         
         if trimmedText.count < 3 {
-            csm.createErrorSheet(message: "Your new todo must be at least 3 characters long!", emojis: "😱😨😰")
+            csm.createErrorSheet(message: "Your new todo's title must be at least 3 characters long!", emojis: "😱😨😰")
             return false
         }
         
@@ -116,7 +116,7 @@ extension AddNewTodoView {
         let trimmedTitle = todoTitle.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if isTodoTitleValid(trimmedText: trimmedTitle) {
-            todoManager.addNewTodo(title: todoTitle, description: todoDescription, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
+            todoManager.addNewTodo(title: trimmedTitle, description: todoDescription, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
             presentationMode.wrappedValue.dismiss()
         }
     }
