@@ -80,6 +80,16 @@ class TodoManager : ObservableObject {
     func saveContext(){
         try? container.viewContext.save()
     }
+    
+    func updateTodo(todo: TodoEntity, newTitle: String, newDesc: String, newStatus: Bool, newPriority: Float, newDueDate: Date? = nil) {
+        todo.title = newTitle
+        todo.desc = newDesc
+        todo.isCompleted = !newStatus
+        todo.priority = newPriority
+        todo.categoryID = selectedCategoryID
+        todo.dueDate = newDueDate
+        saveTodosToCoreData()
+    }
 
     func saveTodosToCoreData(){
         do {
