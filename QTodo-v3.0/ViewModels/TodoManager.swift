@@ -69,10 +69,17 @@ class TodoManager : ObservableObject {
     }
     
     func moveTodos(indexSet: IndexSet, newIndex: Int) {
-
         todos.move(fromOffsets: indexSet, toOffset: newIndex)
     }
-
+    
+    func toggleTodo(todo: TodoEntity) {
+        todo.isCompleted.toggle()
+        saveContext()
+    }
+    
+    func saveContext(){
+        try? container.viewContext.save()
+    }
 
     func saveTodosToCoreData(){
         do {
