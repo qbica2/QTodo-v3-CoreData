@@ -20,6 +20,8 @@
 		E0C10BD82A3C64A200F5A997 /* TodoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD72A3C64A200F5A997 /* TodoManager.swift */; };
 		E0C10BDB2A3C763D00F5A997 /* TodoData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BD92A3C763D00F5A997 /* TodoData.xcdatamodeld */; };
 		E0C10BDD2A3DF39F00F5A997 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BDC2A3DF39F00F5A997 /* TodoDetailView.swift */; };
+		E0C10BDF2A3E3FD200F5A997 /* CustomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BDE2A3E3FD200F5A997 /* CustomSheetView.swift */; };
+		E0C10BE12A3E423A00F5A997 /* CustomSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BE02A3E423A00F5A997 /* CustomSheetManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		E0C10BD72A3C64A200F5A997 /* TodoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoManager.swift; sourceTree = "<group>"; };
 		E0C10BDA2A3C763D00F5A997 /* TodoData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TodoData.xcdatamodel; sourceTree = "<group>"; };
 		E0C10BDC2A3DF39F00F5A997 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
+		E0C10BDE2A3E3FD200F5A997 /* CustomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetView.swift; sourceTree = "<group>"; };
+		E0C10BE02A3E423A00F5A997 /* CustomSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 				E0C10BD22A3B5BFF00F5A997 /* TodoView.swift */,
 				E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */,
 				E0C10BDC2A3DF39F00F5A997 /* TodoDetailView.swift */,
+				E0C10BDE2A3E3FD200F5A997 /* CustomSheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				E0C10BD72A3C64A200F5A997 /* TodoManager.swift */,
+				E0C10BE02A3E423A00F5A997 /* CustomSheetManager.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -191,6 +197,8 @@
 				E0C10BB52A3B351100F5A997 /* QTodo_v3_0App.swift in Sources */,
 				E0C10BCF2A3B4BB300F5A997 /* CategoryModel.swift in Sources */,
 				E0C10BD52A3B94C100F5A997 /* AddNewTodoView.swift in Sources */,
+				E0C10BE12A3E423A00F5A997 /* CustomSheetManager.swift in Sources */,
+				E0C10BDF2A3E3FD200F5A997 /* CustomSheetView.swift in Sources */,
 				E0C10BDB2A3C763D00F5A997 /* TodoData.xcdatamodeld in Sources */,
 				E0C10BD32A3B5BFF00F5A997 /* TodoView.swift in Sources */,
 				E0C10BC62A3B370200F5A997 /* MainView.swift in Sources */,
