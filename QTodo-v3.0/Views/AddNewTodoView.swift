@@ -61,8 +61,10 @@ struct AddNewTodoView: View {
 
             Section {
                 Toggle("Schedule Time", isOn: $isScheduled)
+                    .tint(.pink)
                 DatePicker("Due Date", selection: $todoDueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
                     .disabled(!isScheduled)
+                    .tint(.pink)
             } header: {
                 Text("Due Date")
             }
