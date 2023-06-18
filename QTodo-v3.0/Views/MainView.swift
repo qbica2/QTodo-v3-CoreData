@@ -10,11 +10,23 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject var todoManager: TodoManager
+    @State private var selectedFilter: String = "All"
+    
+    let filterOptions = ["All", "Active", "Completed"]
     
     var body: some View {
         VStack{
             CategoriesContentView()
             ListView()
+            
+            Picker("Filter", selection: $selectedFilter) {
+                ForEach(filterOptions, id: \.self) { option in
+                    Text(option)
+                        .tag(option)
+                }
+            }
+            .pickerStyle(.segmented)
+            
         }
         
         .navigationTitle("Qtodo")
@@ -31,11 +43,31 @@ struct MainView: View {
             }
               
         }
-        .onAppear {
-            todoManager.getTodos(for: todoManager.selectedCategoryID)
+        .onAppear(perform: getTodos)
+        .onChange(of: selectedFilter) { filter in
+            filterTodos(filter: filter)
         }
     }
     
+}
+//MARK: - FUNCTIONS
+
+extension MainView {
+    
+    func getTodos(){
+        todoManager.getTodos(for: todoManager.selectedCategoryID, filterOption: todoManager.selectedFilter)
+    }
+    
+    func filterTodos(filter: String){
+        switch filter {
+        case "All": todoManager.selectedFilter = .none
+        case "Active" : todoManager.selectedFilter = .active
+        case "Completed" : todoManager.selectedFilter = .completed
+        default:
+            break
+        }
+        getTodos()
+    }
 }
 
 struct MainView_Previews: PreviewProvider {
