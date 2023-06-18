@@ -14,6 +14,10 @@ struct CategoriesContentView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
+                CategoryView(category: Category(id: 7, name: "All", imageName: "square.grid.3x3.fill"))
+                    .onTapGesture {
+                        todoManager.setSelectedCategory(id: 7)
+                    }
                 ForEach(todoManager.categories, id: \.id) { category in
                     CategoryView(category: category)
                         .onTapGesture {
