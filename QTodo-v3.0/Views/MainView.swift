@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MainView: View {
     
+    @EnvironmentObject var todoManager: TodoManager
+    
     var body: some View {
         VStack{
             CategoriesContentView()
@@ -28,6 +30,9 @@ struct MainView: View {
                     .padding()
             }
               
+        }
+        .onAppear {
+            todoManager.getTodos(for: todoManager.selectedCategoryID)
         }
     }
     
