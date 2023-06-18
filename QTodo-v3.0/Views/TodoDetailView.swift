@@ -15,6 +15,7 @@ struct TodoDetailView: View {
     
     @State private var title: String = ""
     @State private var description: String = ""
+    @State private var categoryID: Int16 = 0
     @State private var isActive: Bool = false
     @State private var dueDate: Date = Date()
     @State private var isScheduled: Bool = false
@@ -51,7 +52,7 @@ struct TodoDetailView: View {
                 }
                 
                 Section (content: {
-                    Picker("Category", selection: $todoManager.selectedCategoryID) {
+                    Picker("Category", selection: $categoryID) {
                         ForEach(todoManager.categories, id: \.id) { item in
                             Text(item.name.capitalized)
                                 .tag(item.id)
@@ -93,6 +94,7 @@ struct TodoDetailView: View {
             .onAppear {
                 title = todo.title ?? ""
                 description = todo.desc ?? ""
+                categoryID = todo.categoryID
                 priority = todo.priority
                 isActive = !todo.isCompleted
                 if todo.dueDate != nil {
@@ -144,7 +146,7 @@ extension TodoDetailView {
         let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if isTodoTitleValid(trimmedText: trimmedTitle) {
-            todoManager.updateTodo(todo: todo, newTitle: trimmedTitle, newDesc: description, newStatus: isActive, newPriority: priority, newDueDate: isScheduled ? dueDate : nil)
+            todoManager.updateTodo(todo: todo, newTitle: trimmedTitle, newDesc: description, newCategoryID: categoryID, newStatus: isActive, newPriority: priority, newDueDate: isScheduled ? dueDate : nil)
             presentationMode.wrappedValue.dismiss()
         }
     }
