@@ -18,6 +18,7 @@ struct TodoView: View {
         HStack{
             Image(systemName: isACtive ? "circle" : "circle.fill")
             Text(todo.title ?? "title")
+                .lineLimit(1)
             
             if let dueDate = todo.dueDate {
                 Spacer()
