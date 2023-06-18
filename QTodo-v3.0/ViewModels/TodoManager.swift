@@ -37,7 +37,6 @@ class TodoManager : ObservableObject {
             }
         }
         getCategories()
-        getTodos(for: selectedCategoryID)
     }
     
     func getCategories(){
