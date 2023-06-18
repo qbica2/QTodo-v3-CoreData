@@ -91,17 +91,7 @@ struct TodoDetailView: View {
                 }
                 
             }
-            .onAppear {
-                title = todo.title ?? ""
-                description = todo.desc ?? ""
-                categoryID = todo.categoryID
-                priority = todo.priority
-                isActive = !todo.isCompleted
-                if todo.dueDate != nil {
-                    isScheduled = true
-                    dueDate = todo.dueDate ?? Date()
-                }
-            }
+            .onAppear(perform: updateUI)
         }
          .navigationBarTitle("Edit Todo ✏️")
          .navigationBarTitleDisplayMode(.inline)
@@ -127,6 +117,18 @@ struct TodoDetailView: View {
 //MARK: - Functions
 
 extension TodoDetailView {
+    
+    func updateUI(){
+        title = todo.title ?? ""
+        description = todo.desc ?? ""
+        categoryID = todo.categoryID
+        priority = todo.priority
+        isActive = !todo.isCompleted
+        if todo.dueDate != nil {
+            isScheduled = true
+            dueDate = todo.dueDate ?? Date()
+        }
+    }
     
     func isTodoTitleValid(trimmedText: String) -> Bool {
         if trimmedText.isEmpty {
