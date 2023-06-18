@@ -15,6 +15,7 @@ struct AddNewTodoView: View {
     
     @State private var todoTitle: String = ""
     @State private var todoDescription: String = ""
+    @State private var categoryID: Int16 = 0
     @State private var isScheduled: Bool = false
     @State private var todoDueDate: Date = Date()
     @State private var priority: Float = 0
@@ -33,7 +34,7 @@ struct AddNewTodoView: View {
             })
             
             Section {
-                Picker("Select a category", selection: $todoManager.selectedCategoryID) {
+                Picker("Select a category", selection: $categoryID) {
                     ForEach(todoManager.categories, id: \.id) { item in
                         Text(item.name.capitalized)
                             .tag(item.id)
@@ -43,6 +44,13 @@ struct AddNewTodoView: View {
                 .pickerStyle(.menu)
             } header: {
                 Text("Category")
+            }
+            .onAppear {
+                if todoManager.selectedCategoryID == 7 {
+                    categoryID = 0
+                } else {
+                    categoryID = todoManager.selectedCategoryID
+                }
             }
             
             Section {
@@ -116,7 +124,7 @@ extension AddNewTodoView {
         let trimmedTitle = todoTitle.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if isTodoTitleValid(trimmedText: trimmedTitle) {
-            todoManager.addNewTodo(title: trimmedTitle, description: todoDescription, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
+            todoManager.addNewTodo(title: trimmedTitle, description: todoDescription, categoryID: categoryID, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
             presentationMode.wrappedValue.dismiss()
         }
     }
