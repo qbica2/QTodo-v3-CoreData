@@ -94,8 +94,8 @@
 		E0C10BC22A3B35D900F5A997 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E0C10BC32A3B35E900F5A997 /* ListView.swift */,
 				E0C10BC52A3B370200F5A997 /* MainView.swift */,
+				E0C10BC32A3B35E900F5A997 /* ListView.swift */,
 				E0C10BC72A3B3C1900F5A997 /* CategoriesContentView.swift */,
 				E0C10BC92A3B46AE00F5A997 /* CategoryView.swift */,
 				E0C10BD22A3B5BFF00F5A997 /* TodoView.swift */,

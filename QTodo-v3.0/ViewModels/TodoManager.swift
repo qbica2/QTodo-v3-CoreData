@@ -22,12 +22,19 @@ import CoreData
         7 => All
  */
 
+enum FilterOption {
+    case none
+    case active
+    case completed
+}
+
 class TodoManager : ObservableObject {
     
     let container : NSPersistentContainer
     @Published var todos: [TodoEntity] = []
     @Published var categories: [Category] = []
     @Published var selectedCategoryID: Int16 = 7
+    @Published var selectedFilter: FilterOption = .none
 
     init (){
         container = NSPersistentContainer(name: "TodoData")
@@ -52,11 +59,27 @@ class TodoManager : ObservableObject {
 
     }
     
-    func getTodos(for categoryId: Int16) {
+    func getTodos(for categoryId: Int16, filterOption: FilterOption) {
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
 
+        var predicates: [NSPredicate] = []
+
         if categoryId != 7 {
-            request.predicate = NSPredicate(format: "categoryID == %d", categoryId)
+            predicates.append(NSPredicate(format: "categoryID == %d", categoryId))
+        }
+
+        switch filterOption {
+        case .active:
+            predicates.append(NSPredicate(format: "isCompleted == %@", NSNumber(value: false)))
+        case .completed:
+            predicates.append(NSPredicate(format: "isCompleted == %@", NSNumber(value: true)))
+        case .none:
+            break
+        }
+
+        if !predicates.isEmpty {
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+            request.predicate = compoundPredicate
         }
 
         do {
@@ -90,6 +113,7 @@ class TodoManager : ObservableObject {
     func toggleTodo(todo: TodoEntity) {
         todo.isCompleted.toggle()
         saveContext()
+        getTodos(for: selectedCategoryID, filterOption: selectedFilter)
     }
     
     func saveContext(){
@@ -112,7 +136,7 @@ class TodoManager : ObservableObject {
     
     func setSelectedCategory(id: Int16){
         selectedCategoryID = id
-        getTodos(for: selectedCategoryID)
+        getTodos(for: selectedCategoryID, filterOption: selectedFilter)
     }
     
     func getTodoCount(for categoryId: Int16) -> Int {
