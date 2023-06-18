@@ -9,12 +9,25 @@ import Foundation
 import CoreData
 
 
+/*
+        selectedCategoryID
+ 
+        0 => Personal
+        1 => Work
+        2 => Shopping
+        3 => Home
+        4 => Education
+        5 => Health
+        6 => Other
+        7 => All
+ */
+
 class TodoManager : ObservableObject {
     
     let container : NSPersistentContainer
     @Published var todos: [TodoEntity] = []
     @Published var categories: [Category] = []
-    @Published var selectedCategoryID: Int16 = 0
+    @Published var selectedCategoryID: Int16 = 7
 
     init (){
         container = NSPersistentContainer(name: "TodoData")
@@ -40,9 +53,12 @@ class TodoManager : ObservableObject {
 
     }
     
-    func getTodos(for categoryId: Int16){
+    func getTodos(for categoryId: Int16) {
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
-        request.predicate = NSPredicate(format: "categoryID == %d", categoryId)
+
+        if categoryId != 7 {
+            request.predicate = NSPredicate(format: "categoryID == %d", categoryId)
+        }
 
         do {
             todos = try container.viewContext.fetch(request)
@@ -51,21 +67,21 @@ class TodoManager : ObservableObject {
         }
     }
     
-    func addNewTodo(title: String, description: String, priority: Float, dueDate: Date? = nil){
+    func addNewTodo(title: String, description: String, categoryID: Int16, priority: Float, dueDate: Date? = nil){
         let newTodo = TodoEntity(context: container.viewContext)
         newTodo.id = UUID().uuidString
         newTodo.title = title
         newTodo.desc = description
+        newTodo.categoryID = categoryID
         newTodo.priority = priority
-        newTodo.categoryID = selectedCategoryID
         newTodo.isCompleted = false
         newTodo.dueDate = dueDate
-        saveTodosToCoreData()
+        saveContext()
     }
     
     func deleteTodo(_ todo: TodoEntity) {
         container.viewContext.delete(todo)
-        saveTodosToCoreData()
+        saveContext()
     }
     
     func moveTodos(indexSet: IndexSet, newIndex: Int) {
@@ -78,26 +94,21 @@ class TodoManager : ObservableObject {
     }
     
     func saveContext(){
-        try? container.viewContext.save()
+        do {
+            try container.viewContext.save()
+        } catch let error {
+            print("Saving errror \(error.localizedDescription)")
+        }
     }
     
-    func updateTodo(todo: TodoEntity, newTitle: String, newDesc: String, newStatus: Bool, newPriority: Float, newDueDate: Date? = nil) {
+    func updateTodo(todo: TodoEntity, newTitle: String, newDesc: String, newCategoryID: Int16, newStatus: Bool, newPriority: Float, newDueDate: Date? = nil) {
         todo.title = newTitle
         todo.desc = newDesc
         todo.isCompleted = !newStatus
         todo.priority = newPriority
-        todo.categoryID = selectedCategoryID
+        todo.categoryID = newCategoryID
         todo.dueDate = newDueDate
-        saveTodosToCoreData()
-    }
-
-    func saveTodosToCoreData(){
-        do {
-            try container.viewContext.save()
-            getTodos(for: selectedCategoryID)
-        } catch let error {
-            print("Saving errror \(error.localizedDescription)")
-        }
+        saveContext()
     }
     
     func setSelectedCategory(id: Int16){
