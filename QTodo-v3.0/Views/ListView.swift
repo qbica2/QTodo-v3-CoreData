@@ -34,11 +34,6 @@ struct ListView: View {
             }
             .listStyle(.insetGrouped)
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
-        }
         .navigationDestination(for: TodoEntity.self) { todo in
             TodoDetailView(todo: todo)
         }
