@@ -11,6 +11,8 @@ struct MainView: View {
     
     @EnvironmentObject var todoManager: TodoManager
     @State private var selectedFilter: String = "All"
+    @State private var showConfirmation: Bool = false
+    @State private var showAlert: Bool = false
     
     let filterOptions = ["All", "Active", "Completed"]
     
@@ -30,6 +32,19 @@ struct MainView: View {
         }
         
         .navigationTitle("Qtodo")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Image(systemName: "trash")
+                    .foregroundColor(.pink)
+                    .onTapGesture {
+                        deleteButtonPressed()
+                    }
+            }
+        }
+        .tint(.pink)
         .safeAreaInset(edge: .bottom, alignment: .trailing) {
             NavigationLink {
                 AddNewTodoView()
@@ -47,12 +62,38 @@ struct MainView: View {
         .onChange(of: selectedFilter) { filter in
             filterTodos(filter: filter)
         }
+        
+        .alert("List already empty", isPresented: $showAlert, actions: {
+            Button("OK") {
+                showAlert = false
+            }
+        })
+        
+        .confirmationDialog("WARNİNG!!!", isPresented: $showConfirmation, titleVisibility: .visible) {
+            Button(role: .destructive) {
+                todoManager.deleteTodos()
+            } label: {
+                Text("YES")
+            }
+
+        } message: {
+            Text("Are you sure you want to delete all the todos in the list? This action cannot be undone.")
+        }
+        
     }
     
 }
 //MARK: - FUNCTIONS
 
 extension MainView {
+    
+    func deleteButtonPressed(){
+        if todoManager.isTodosEmpty() {
+            showAlert.toggle()
+        } else {
+            showConfirmation.toggle()
+        }
+    }
     
     func getTodos(){
         todoManager.getTodos(for: todoManager.selectedCategoryID, filterOption: todoManager.selectedFilter)
