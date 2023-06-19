@@ -89,6 +89,14 @@ class TodoManager : ObservableObject {
         }
     }
     
+    func saveContext(){
+        do {
+            try container.viewContext.save()
+        } catch let error {
+            print("Saving errror \(error.localizedDescription)")
+        }
+    }
+    
     func addNewTodo(title: String, description: String, categoryID: Int16, priority: Float, dueDate: Date? = nil){
         let newTodo = TodoEntity(context: container.viewContext)
         newTodo.id = UUID().uuidString
@@ -116,14 +124,6 @@ class TodoManager : ObservableObject {
         getTodos(for: selectedCategoryID, filterOption: selectedFilter)
     }
     
-    func saveContext(){
-        do {
-            try container.viewContext.save()
-        } catch let error {
-            print("Saving errror \(error.localizedDescription)")
-        }
-    }
-    
     func updateTodo(todo: TodoEntity, newTitle: String, newDesc: String, newCategoryID: Int16, newStatus: Bool, newPriority: Float, newDueDate: Date? = nil) {
         todo.title = newTitle
         todo.desc = newDesc
@@ -132,6 +132,18 @@ class TodoManager : ObservableObject {
         todo.categoryID = newCategoryID
         todo.dueDate = newDueDate
         saveContext()
+    }
+    
+    func deleteTodos(){
+        for todo in todos {
+            container.viewContext.delete(todo)
+        }
+        saveContext()
+        getTodos(for: selectedCategoryID, filterOption: selectedFilter)
+    }
+    
+    func isTodosEmpty() -> Bool {
+        return todos.isEmpty
     }
     
     func setSelectedCategory(id: Int16){
