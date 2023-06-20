@@ -69,7 +69,7 @@ class TodoManager : ObservableObject {
 
     }
     
-    func getTodos(for categoryId: Int16, filterOption: FilterOption, sortOption: SortOption? = .oldest) {
+    func getTodos(for categoryId: Int16, filterOption: FilterOption, sortOption: SortOption ) {
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
 
         var predicates: [NSPredicate] = []
@@ -92,26 +92,26 @@ class TodoManager : ObservableObject {
             request.predicate = compoundPredicate
         }
 
-        if let sortOption = sortOption {
-            let sortDescriptor: NSSortDescriptor
-
-            switch sortOption {
-            case .oldest:
-                sortDescriptor = NSSortDescriptor(key: "creationTimestamp", ascending: true)
-            case .latest:
-                sortDescriptor = NSSortDescriptor(key: "creationTimestamp", ascending: false)
-            case .highPriority:
-                sortDescriptor = NSSortDescriptor(key: "priority", ascending: false)
-            case .lowPriority:
-                sortDescriptor = NSSortDescriptor(key: "priority", ascending: true)
-            case .closestDueDate:
-                sortDescriptor = NSSortDescriptor(key: "dueDate", ascending: true)
-            case .farthestDueDate:
-                sortDescriptor = NSSortDescriptor(key: "dueDate", ascending: false)
-            }
-
-            request.sortDescriptors = [sortDescriptor]
+        
+        let sortDescriptor: NSSortDescriptor
+        
+        switch sortOption {
+        case .oldest:
+            sortDescriptor = NSSortDescriptor(key: "creationTimestamp", ascending: true)
+        case .latest:
+            sortDescriptor = NSSortDescriptor(key: "creationTimestamp", ascending: false)
+        case .highPriority:
+            sortDescriptor = NSSortDescriptor(key: "priority", ascending: false)
+        case .lowPriority:
+            sortDescriptor = NSSortDescriptor(key: "priority", ascending: true)
+        case .closestDueDate:
+            sortDescriptor = NSSortDescriptor(key: "dueDate", ascending: true)
+        case .farthestDueDate:
+            sortDescriptor = NSSortDescriptor(key: "dueDate", ascending: false)
         }
+        
+        request.sortDescriptors = [sortDescriptor]
+        
 
         do {
             todos = try container.viewContext.fetch(request)
@@ -153,7 +153,7 @@ class TodoManager : ObservableObject {
     func toggleTodo(todo: TodoEntity) {
         todo.isCompleted.toggle()
         saveContext()
-        getTodos(for: selectedCategoryID, filterOption: selectedFilter)
+        getTodos(for: selectedCategoryID, filterOption: selectedFilter, sortOption: selectedSortOption)
     }
     
     func updateTodo(todo: TodoEntity, newTitle: String, newDesc: String, newCategoryID: Int16, newStatus: Bool, newPriority: Float, newDueDate: Date? = nil) {
@@ -171,7 +171,7 @@ class TodoManager : ObservableObject {
             container.viewContext.delete(todo)
         }
         saveContext()
-        getTodos(for: selectedCategoryID, filterOption: selectedFilter)
+        getTodos(for: selectedCategoryID, filterOption: selectedFilter, sortOption: selectedSortOption)
     }
     
     func isTodosEmpty() -> Bool {
@@ -180,7 +180,7 @@ class TodoManager : ObservableObject {
     
     func setSelectedCategory(id: Int16){
         selectedCategoryID = id
-        getTodos(for: selectedCategoryID, filterOption: selectedFilter)
+        getTodos(for: selectedCategoryID, filterOption: selectedFilter, sortOption: selectedSortOption)
     }
     
     func getTodoCount(for categoryId: Int16) -> Int {
