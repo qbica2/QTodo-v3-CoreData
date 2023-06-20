@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E04B6C622A41B6BF00129493 /* SortMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B6C612A41B6BF00129493 /* SortMenuView.swift */; };
 		E0C10BB52A3B351100F5A997 /* QTodo_v3_0App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C10BB42A3B351100F5A997 /* QTodo_v3_0App.swift */; };
 		E0C10BB92A3B351200F5A997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C10BB82A3B351200F5A997 /* Assets.xcassets */; };
 		E0C10BBC2A3B351200F5A997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C10BBB2A3B351200F5A997 /* Preview Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E04B6C612A41B6BF00129493 /* SortMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMenuView.swift; sourceTree = "<group>"; };
 		E0C10BB12A3B351100F5A997 /* QTodo-v3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "QTodo-v3.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C10BB42A3B351100F5A997 /* QTodo_v3_0App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QTodo_v3_0App.swift; sourceTree = "<group>"; };
 		E0C10BB82A3B351200F5A997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				E0C10BD42A3B94C100F5A997 /* AddNewTodoView.swift */,
 				E0C10BDC2A3DF39F00F5A997 /* TodoDetailView.swift */,
 				E0C10BDE2A3E3FD200F5A997 /* CustomSheetView.swift */,
+				E04B6C612A41B6BF00129493 /* SortMenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				E0C10BDB2A3C763D00F5A997 /* TodoData.xcdatamodeld in Sources */,
 				E0C10BD32A3B5BFF00F5A997 /* TodoView.swift in Sources */,
 				E0C10BC62A3B370200F5A997 /* MainView.swift in Sources */,
+				E04B6C622A41B6BF00129493 /* SortMenuView.swift in Sources */,
 				E0C10BDD2A3DF39F00F5A997 /* TodoDetailView.swift in Sources */,
 				E0C10BD82A3C64A200F5A997 /* TodoManager.swift in Sources */,
 				E0C10BC82A3B3C1900F5A997 /* CategoriesContentView.swift in Sources */,
