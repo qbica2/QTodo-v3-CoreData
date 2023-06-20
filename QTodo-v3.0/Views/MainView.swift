@@ -43,6 +43,9 @@ struct MainView: View {
                         deleteButtonPressed()
                     }
             }
+            ToolbarItem(placement: .navigationBarLeading) {
+                SortMenuView()
+            }
         }
         .tint(.pink)
         .safeAreaInset(edge: .bottom, alignment: .trailing) {
@@ -96,7 +99,7 @@ extension MainView {
     }
     
     func getTodos(){
-        todoManager.getTodos(for: todoManager.selectedCategoryID, filterOption: todoManager.selectedFilter)
+        todoManager.getTodos(for: todoManager.selectedCategoryID, filterOption: todoManager.selectedFilter, sortOption: todoManager.selectedSortOption)
     }
     
     func filterTodos(filter: String){
