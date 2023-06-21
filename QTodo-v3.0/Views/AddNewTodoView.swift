@@ -26,71 +26,11 @@ struct AddNewTodoView: View {
     
     var body: some View {
         Form {
-            Section (content: {
-                TextField("Title", text: $todoTitle)
-                TextField("Description", text: $todoDescription)
-            }, header: {
-                Text("Todo")
-            })
-            
-            Section {
-                Picker("Select a category", selection: $categoryID) {
-                    ForEach(todoManager.categories, id: \.id) { item in
-                        Text(item.name.capitalized)
-                            .tag(item.id)
-                    }
-                }
-                .tint(.pink)
-                .pickerStyle(.menu)
-            } header: {
-                Text("Category")
-            }
-            .onAppear {
-                if todoManager.selectedCategoryID == 7 {
-                    categoryID = 0
-                } else {
-                    categoryID = todoManager.selectedCategoryID
-                }
-            }
-            
-            Section {
-                Slider(value: $priority,in: 0...100, step: 1) {
-                    Text("Priority")
-                } minimumValueLabel: {
-                    Text("0")
-                        .foregroundColor(.pink)
-                } maximumValueLabel: {
-                    Text("\(String(format: "%.0f", priority))/100")
-                        .foregroundColor(.pink)
-                }
-                .tint(.pink)
-
-            } header: {
-                Text("Priority")
-            }
-
-            Section {
-                Toggle("Schedule Time", isOn: $isScheduled)
-                    .tint(.pink)
-                DatePicker("Due Date", selection: $todoDueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
-                    .disabled(!isScheduled)
-                    .tint(.pink)
-            } header: {
-                Text("Due Date")
-            }
-            
-            Button(action: saveButtonPressed) {
-                Text("Save")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.pink)
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
-            }
-            .padding()
+            TodoSection
+            CategorySection
+            PrioritySection
+            DueDateSection
+            SaveButton
             
             .sheet(isPresented: $csm.isCsActive, content: {
                 CustomSheetView()
@@ -99,6 +39,86 @@ struct AddNewTodoView: View {
             .navigationTitle("Add New Todo")
         }
         .formStyle(.grouped)
+    }
+}
+//MARK: - SUBVIEWS
+
+extension AddNewTodoView {
+    
+    var TodoSection: some View {
+        Section (content: {
+            TextField("Title", text: $todoTitle)
+            TextField("Description", text: $todoDescription)
+        }, header: {
+            Text("Todo")
+        })
+    }
+    
+    var CategorySection: some View {
+        Section {
+            Picker("Select a category", selection: $categoryID) {
+                ForEach(todoManager.categories, id: \.id) { item in
+                    Text(item.name.capitalized)
+                        .tag(item.id)
+                }
+            }
+            .tint(.pink)
+            .pickerStyle(.menu)
+        } header: {
+            Text("Category")
+        }
+        .onAppear {
+            if todoManager.selectedCategoryID == 7 {
+                categoryID = 0
+            } else {
+                categoryID = todoManager.selectedCategoryID
+            }
+        }
+    }
+    
+    var PrioritySection: some View {
+        Section {
+            Slider(value: $priority,in: 0...100, step: 1) {
+                Text("Priority")
+            } minimumValueLabel: {
+                Text("0")
+                    .foregroundColor(.pink)
+            } maximumValueLabel: {
+                Text("\(String(format: "%.0f", priority))/100")
+                    .foregroundColor(.pink)
+            }
+            .tint(.pink)
+            
+        } header: {
+            Text("Priority")
+        }
+    }
+    
+    var DueDateSection: some View {
+        Section {
+            Toggle("Schedule Time", isOn: $isScheduled)
+                .tint(.pink)
+            DatePicker("Due Date", selection: $todoDueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
+                .disabled(!isScheduled)
+                .tint(.pink)
+        } header: {
+            Text("Due Date")
+        }
+    }
+    
+    var SaveButton: some View {
+        Button(action: saveButtonPressed) {
+            Text("Save")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.vertical, 10)
+                .background(Color.pink)
+                .cornerRadius(10)
+                .padding(.horizontal, 20)
+        }
+        .padding()
     }
 }
 //MARK: - FUNCTIONS
