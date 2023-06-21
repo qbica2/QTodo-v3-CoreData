@@ -19,15 +19,22 @@ struct MainView: View {
     var body: some View {
         VStack{
             CategoriesContentView()
-            ListView()
             
-            Picker("Filter", selection: $selectedFilter) {
-                ForEach(filterOptions, id: \.self) { option in
-                    Text(option)
-                        .tag(option)
+            if todoManager.todos.isEmpty {
+                Spacer()
+                EmptyListView()
+                    .transition(AnyTransition.opacity.animation(.easeIn(duration: 0.8)))
+            } else {
+                ListView()
+                
+                Picker("Filter", selection: $selectedFilter) {
+                    ForEach(filterOptions, id: \.self) { option in
+                        Text(option)
+                            .tag(option)
+                    }
                 }
+                .pickerStyle(.segmented)
             }
-            .pickerStyle(.segmented)
             
         }
         
