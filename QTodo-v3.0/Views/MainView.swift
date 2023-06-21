@@ -26,16 +26,8 @@ struct MainView: View {
                     .transition(AnyTransition.opacity.animation(.easeIn(duration: 0.8)))
             } else {
                 ListView()
-                
-                Picker("Filter", selection: $selectedFilter) {
-                    ForEach(filterOptions, id: \.self) { option in
-                        Text(option)
-                            .tag(option)
-                    }
-                }
-                .pickerStyle(.segmented)
+                FilterSection
             }
-            
         }
         
         .navigationTitle("Qtodo")
@@ -44,11 +36,7 @@ struct MainView: View {
                 EditButton()
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Image(systemName: "trash")
-                    .foregroundColor(.pink)
-                    .onTapGesture {
-                        deleteButtonPressed()
-                    }
+                DeleteButton
             }
             ToolbarItem(placement: .navigationBarLeading) {
                 SortMenuView()
@@ -56,17 +44,7 @@ struct MainView: View {
         }
         .tint(.pink)
         .safeAreaInset(edge: .bottom, alignment: .trailing) {
-            NavigationLink {
-                AddNewTodoView()
-            } label: {
-                Image(systemName: "plus")
-                    .tint(.white)
-                    .padding()
-                    .background(Color.pink.opacity(0.8).ignoresSafeArea(edges: .bottom))
-                    .clipShape(Circle())
-                    .padding()
-            }
-              
+            AddTodoButton
         }
         .onAppear(perform: getTodos)
         .onChange(of: selectedFilter) { filter in
@@ -93,6 +71,41 @@ struct MainView: View {
     }
     
 }
+//MARK: - SUBVIEWS
+
+extension MainView {
+    var FilterSection: some View {
+        Picker("Filter", selection: $selectedFilter) {
+            ForEach(filterOptions, id: \.self) { option in
+                Text(option)
+                    .tag(option)
+            }
+        }
+        .pickerStyle(.segmented)
+    }
+    
+    var DeleteButton: some View {
+        Image(systemName: "trash")
+            .foregroundColor(.pink)
+            .onTapGesture {
+                deleteButtonPressed()
+            }
+    }
+    
+    var AddTodoButton: some View {
+        NavigationLink {
+            AddNewTodoView()
+        } label: {
+            Image(systemName: "plus")
+                .tint(.white)
+                .padding()
+                .background(Color.pink.opacity(0.8).ignoresSafeArea(edges: .bottom))
+                .clipShape(Circle())
+                .padding()
+        }
+    }
+}
+
 //MARK: - FUNCTIONS
 
 extension MainView {
