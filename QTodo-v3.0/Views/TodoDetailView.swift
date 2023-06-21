@@ -30,66 +30,12 @@ struct TodoDetailView: View {
     var body: some View {
         VStack {
             Form {
-                Section (content: {
-                    TextField(todo.title ?? "", text: $title)
-                        .foregroundColor(.pink)
-                }, header: {
-                    Text("Change Title")
-                })
-                
-                Section (content: {
-                    TextField(todo.desc ?? "", text: $description)
-                        .foregroundColor(.pink)
-                }, header: {
-                    Text("Change Description")
-                })
-                
-                Section {
-                    Toggle(isActive ? "Active" : "Passive" , isOn: $isActive)
-                        .tint(.pink)
-                } header: {
-                    Text("Change Status")
-                }
-                
-                Section (content: {
-                    Picker("Category", selection: $categoryID) {
-                        ForEach(todoManager.categories, id: \.id) { item in
-                            Text(item.name.capitalized)
-                                .tag(item.id)
-                        }
-                    }
-                    .tint(.pink)
-                    .pickerStyle(.menu)
-                }, header: {
-                    Text("Change Category")
-                })
-                
-                Section {
-                    Slider(value: $priority,in: 0...100, step: 1) {
-                        Text("Priority")
-                    } minimumValueLabel: {
-                        Text("0")
-                            .foregroundColor(.pink)
-                    } maximumValueLabel: {
-                        Text("\(String(format: "%.0f", priority))/100")
-                            .foregroundColor(.pink)
-                    }
-                    .tint(.pink)
-                    
-                } header: {
-                    Text("Change Priority")
-                }
-                
-                Section {
-                    Toggle("Schedule Time", isOn: $isScheduled)
-                        .tint(.pink)
-                    DatePicker("Due Date", selection: $dueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
-                        .disabled(!isScheduled)
-                        .tint(.pink)
-                } header: {
-                    Text("Change Due Date")
-                }
-                
+                TitleSection
+                DescriptionSection
+                StatusSection
+                CategorySection
+                PrioritySection
+                DueDateSection
             }
             .onAppear(perform: updateUI)
         }
@@ -97,14 +43,7 @@ struct TodoDetailView: View {
          .navigationBarTitleDisplayMode(.inline)
          .toolbar {
              ToolbarItem(placement: .navigationBarTrailing) {
-                 Button(action: saveButtonPressed) {
-                     Text("Save")
-                         .foregroundColor(.white)
-                         .padding(.horizontal)
-                         .padding(.vertical, 8)
-                         .background(Color.pink.opacity(0.8))
-                         .clipShape(Capsule())
-                 }
+                 SaveButton
              }
          }
          .sheet(isPresented: $csm.isCsActive) {
@@ -113,6 +52,94 @@ struct TodoDetailView: View {
          }
       
      }
+}
+
+//MARK: - Subviews
+
+extension TodoDetailView {
+    
+    var TitleSection: some View {
+        Section (content: {
+            TextField(todo.title ?? "", text: $title)
+                .foregroundColor(.pink)
+        }, header: {
+            Text("Change Title")
+        })
+    }
+    
+    var DescriptionSection: some View {
+        Section (content: {
+            TextField(todo.desc ?? "", text: $description)
+                .foregroundColor(.pink)
+        }, header: {
+            Text("Change Description")
+        })
+    }
+    
+    var StatusSection: some View {
+        Section {
+            Toggle(isActive ? "Active" : "Passive" , isOn: $isActive)
+                .tint(.pink)
+        } header: {
+            Text("Change Status")
+        }
+    }
+    
+    var CategorySection: some View {
+        Section (content: {
+            Picker("Category", selection: $categoryID) {
+                ForEach(todoManager.categories, id: \.id) { item in
+                    Text(item.name.capitalized)
+                        .tag(item.id)
+                }
+            }
+            .tint(.pink)
+            .pickerStyle(.menu)
+        }, header: {
+            Text("Change Category")
+        })
+    }
+    
+    var PrioritySection: some View {
+        Section {
+            Slider(value: $priority,in: 0...100, step: 1) {
+                Text("Priority")
+            } minimumValueLabel: {
+                Text("0")
+                    .foregroundColor(.pink)
+            } maximumValueLabel: {
+                Text("\(String(format: "%.0f", priority))/100")
+                    .foregroundColor(.pink)
+            }
+            .tint(.pink)
+            
+        } header: {
+            Text("Change Priority")
+        }
+    }
+    
+    var DueDateSection: some View {
+        Section {
+            Toggle("Schedule Time", isOn: $isScheduled)
+                .tint(.pink)
+            DatePicker("Due Date", selection: $dueDate, in:currentDate...oneMonthLater! , displayedComponents: [.date])
+                .disabled(!isScheduled)
+                .tint(.pink)
+        } header: {
+            Text("Change Due Date")
+        }
+    }
+    
+    var SaveButton: some View {
+        Button(action: saveButtonPressed) {
+            Text("Save")
+                .foregroundColor(.white)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(Color.pink.opacity(0.8))
+                .clipShape(Capsule())
+        }
+    }
 }
 //MARK: - Functions
 
