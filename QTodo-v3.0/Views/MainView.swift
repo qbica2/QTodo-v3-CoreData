@@ -26,8 +26,9 @@ struct MainView: View {
                     .transition(AnyTransition.opacity.animation(.easeIn(duration: 0.8)))
             } else {
                 ListView()
-                FilterSection
             }
+            
+            FilterSection
         }
         
         .navigationTitle("Qtodo")
