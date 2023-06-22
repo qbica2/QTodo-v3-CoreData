@@ -11,7 +11,7 @@ struct TodoDetailView: View {
     
     @EnvironmentObject var todoManager: TodoManager
     @EnvironmentObject var csm: CustomSheetManager
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     @State private var title: String = ""
     @State private var description: String = ""
@@ -176,7 +176,7 @@ extension TodoDetailView {
         
         if isTodoTitleValid(trimmedText: trimmedTitle) {
             todoManager.updateTodo(todo: todo, newTitle: trimmedTitle, newDesc: description, newCategoryID: categoryID, newStatus: isActive, newPriority: priority, newDueDate: isScheduled ? dueDate : nil)
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
 }

@@ -11,7 +11,7 @@ struct AddNewTodoView: View {
     
     @EnvironmentObject var todoManager: TodoManager
     @EnvironmentObject var csm: CustomSheetManager
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     @State private var todoTitle: String = ""
     @State private var todoDescription: String = ""
@@ -145,7 +145,7 @@ extension AddNewTodoView {
         
         if isTodoTitleValid(trimmedText: trimmedTitle) {
             todoManager.addNewTodo(title: trimmedTitle, description: todoDescription, categoryID: categoryID, priority: priority, dueDate: isScheduled ? todoDueDate : nil)
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
 }
